@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ucapan Ulang Tahun</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1, h2, h3, p {
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    h1:nth-child(1) { animation-delay: 1s; }
+    h2:nth-child(2) { animation-delay: 3s; }
+    h3:nth-child(3) { animation-delay: 5s; }
+    h3:nth-child(4) { animation-delay: 7s; }
+    h3:nth-child(5) { animation-delay: 9s; }
+    p { animation-delay: 11s; }
+
+    .btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #ff4d6d;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    #playMusicBtn { animation-delay: 13s; }
+    #startBtn { animation-delay: 15s; }
+
+    .slideshow, .video-container, .closing {
+      display: none;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .slideshow img {
+      width: 640px;      /* 4:3 ratio */
+      height: 480px;     /* 4:3 ratio */
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.7);
+      opacity: 0;
+      position: absolute;
+      transform: scale(1.1);
+      transition: opacity 1.5s ease-in-out, transform 4s ease-in-out;
+    }
+
+    .slideshow img.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
+    }
+
+    .video-container video {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(255,255,255,0.8);
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .video-container video.show {
+      opacity: 1;
+    }
+
+    .closing h1 {
+      font-size: 40px;
+      color: #ff4d6d;
+      opacity: 0;
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Musik Background -->
+  <audio id="bg-music" loop>
+    <source src="lagu.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Halaman Utama -->
+  <div class="container" id="intro">
+    <h1>HAI SAYANG</h1>
+    <h2>SELAMAT ULANG TAHUN YA SAYANG</h2>
+    <h3>ADA SEDIKIT KEJUTAN INI</h3>
+    <h3>BUKAN KEJUTAN SIH, LEBIH KE KUMPULAN FOTO FOTO KAMU HEHE</h3>
+    <h3>ADA PESAN NIH BUAT KAMU</h3>
+    <p>
+      Kamu adalah alasan aku bisa tersenyum setiap hari. Melihatmu bertambah usia, aku tidak hanya merasa bahagia, tapi juga bangga.  
+      Semoga di usia ke-21 ini, semua mimpi indahmu satu per satu jadi nyata.  
+      Terima kasih sudah selalu menjadi cahaya dalam hidupku. Aku cinta kamu, selalu. 💖
+    </p>
+    <button class="btn" id="playMusicBtn" onclick="playMusic()">Tekan dulu biar ada lagu nya 🎶</button>
+    <button class="btn" id="startBtn" onclick="startSlideshow()" disabled>Lihat Kejutan 🎉</button>
+  </div>
+
+  <!-- Slideshow -->
+  <div class="slideshow" id="slideshow">
+    <img src="image-1.jpg" class="active">
+    <img src="image-2.jpg">
+    <img src="image-3.jpg">
+    <img src="image-4.jpg">
+    <img src="image-5.jpg">
+    <img src="image-6.jpg">
+    <img src="image-7.jpg">
+    <img src="image-8.jpg">
+    <img src="image-9.jpg">
+    <img src="image-10.jpg">
+    <img src="image-11.jpg">
+    <img src="image-12.jpg">
+    <img src="image-13.jpg">
+    <img src="image-14.jpg">
+    <img src="image-15.jpg">
+    <img src="image-16.jpg">
+    <img src="image-17.jpg">
+    <img src="image-18.jpg">
+    <img src="image-19.jpg">
+    <img src="image-20.jpg">
+  </div>
+
+  <!-- Video -->
+  <div class="video-container" id="videoContainer">
+    <video id="video-1" controls>
+      <source src="video-1.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Penutup -->
+  <div class="closing" id="closing">
+    <h1>Selamat Ulang Tahun Ya Sayang Aku ❤️</h1>
+  </div>
+
+  <script>
+    const bgMusic = document.getElementById("bg-music");
+    const video = document.getElementById("video-1");
+    const startBtn = document.getElementById("startBtn");
+
+    function playMusic() {
+      bgMusic.play();
+      startBtn.disabled = false;
+      document.getElementById("playMusicBtn").innerText = "Musik sudah nyala 🎵";
+      document.getElementById("playMusicBtn").disabled = true;
+    }
+
+    function startSlideshow() {
+      document.getElementById("intro").style.display = "none";
+      const slideshow = document.getElementById("slideshow");
+      slideshow.style.display = "flex";
+
+      let images = slideshow.getElementsByTagName("img");
+      let index = 0;
+
+      function showNextImage() {
+        if (index > 0) images[index - 1].classList.remove("active");
+        if (index < images.length) {
+          images[index].classList.add("active");
+          index++;
+          setTimeout(showNextImage, 4000); // 1 foto tiap 4 detik
+        } else {
+          // Setelah slideshow selesai → tampilkan video
+          slideshow.style.display = "none";
+          const videoContainer = document.getElementById("videoContainer");
+          videoContainer.style.display = "flex";
+          setTimeout(() => {
+            video.classList.add("show");
+          }, 500);
+        }
+      }
+
+      showNextImage();
+    }
+
+    // Saat video mulai diputar → musik pause
+    video.addEventListener("play", () => {
+      bgMusic.pause();
+    });
+
+    // Saat video selesai → tampilkan slide penutup
+    video.addEventListener("ended", () => {
+      document.getElementById("videoContainer").style.display = "none";
+      const closing = document.getElementById("closing");
+      closing.style.display = "flex";
+    });
+  </script>
+</body>
+</html>
